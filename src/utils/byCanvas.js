@@ -19,7 +19,7 @@
   }
 
   const watermark = document.createElement('div');
-  watermark.className = 'watermark-canvas';
+  watermark.className = 'watermark';
   watermark.style.backgroundImage = `url(${createWatermark()})`;
   document.body.appendChild(watermark);
 })();

@@ -18,7 +18,10 @@ import testWM from './assets/test-wm.jpg';
 // import './utils/byDom'
 
 // 明水印-方式三：canvas
-import './utils/byCanvas';
+// import './utils/byCanvas';
+
+// 明水印-方式四：svg
+import './utils/bySvg';
 </script>
 
 <template>
@@ -49,8 +52,8 @@ body,
   /* opacity: 0.2; */
 }
 
-/* 明水印-方式三：canvas */
-.watermark-canvas {
+/* 明水印-方式三/四：背景图实现 canvas/svg */
+.watermark {
   position: fixed;
   top: 0;
   left: 0;
