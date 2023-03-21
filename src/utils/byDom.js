@@ -1,49 +1,56 @@
-;(function () {
-  function cssHelper(el, prototype) {
-    for (let i in prototype) {
-      el.style[i] = prototype[i]
+(function () {
+  function cssHelper(el, property) {
+    for (let key in property) {
+      el.style[key] = property[key];
     }
   }
-  const waterWrapper = document.createElement('div')
+
+  // 设置页面水印层
+  const waterWrapper = document.createElement('div');
   cssHelper(waterWrapper, {
     position: 'fixed',
-    top: '0px',
-    right: '0px ',
-    bottom: '0px',
-    left: '0px',
-    overflow: 'hidden',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     display: 'flex',
     'flex-wrap': 'wrap',
+    overflow: 'hidden',
     'pointer-events': 'none',
-  })
-  const waterHeight = 100
-  const waterWidth = 180
-  const { clientWidth, clientHeight } =
-    document.documentElement || document.body
-  const column = Math.ceil(clientWidth / waterWidth)
-  const rows = Math.ceil(clientHeight / waterHeight)
+  });
 
+  // 设置水印盒子大小，计算每行每列盒子个数
+  const waterWidth = 180;
+  const waterHeight = 100;
+  const { clientWidth, clientHeight } =
+    document.documentElement || document.body;
+  const columns = Math.ceil(clientWidth / waterWidth);
+  const rows = Math.ceil(clientHeight / waterHeight);
+
+  // 工厂函数生成水印文本内容
   function createItem() {
-    const item = document.createElement('div')
-    item.innerHTML = '秋风的笔记'
+    const item = document.createElement('div');
+    item.innerHTML = 'div实现水印';
     cssHelper(item, {
       position: 'absolute',
-      top: `50px`,
-      left: `50px`,
-      fontSize: `16px`,
+      top: '50px',
+      left: '50px',
+      'font-size': '16px',
+      'line-height': 1.5,
       color: '#000',
-      lineHeight: 1.5,
-      opacity: 0.1,
-      transform: `rotate(-15deg)`,
-      transformOrigin: '0 0',
-      userSelect: 'none',
-      whiteSpace: 'nowrap',
+      transform: 'rotate(-15deg)',
+      'transform-origin': '0 0',
       overflow: 'hidden',
-    })
-    return item
+      'white-space': 'nowrap',
+      'user-select': 'none',
+      opacity: 0.1,
+    });
+    return item;
   }
-  for (let i = 0; i < column * rows; i++) {
-    const wrap = document.createElement('div')
+
+  // 遍历生成当前网页的水印盒子
+  for (let i = 0; i < rows * columns; i++) {
+    const wrap = document.createElement('div');
     cssHelper(
       wrap,
       Object.create({
@@ -53,9 +60,11 @@
         flex: `0 0 ${waterWidth}px`,
         overflow: 'hidden',
       })
-    )
-    wrap.appendChild(createItem())
-    waterWrapper.appendChild(wrap)
+    );
+    wrap.appendChild(createItem());
+    waterWrapper.appendChild(wrap);
   }
-  document.body.appendChild(waterWrapper)
-})()
+
+  // 添加到body中
+  document.body.appendChild(waterWrapper);
+})();
