@@ -18,10 +18,10 @@ import testWM from './assets/test-wm.jpg';
 // import './utils/byDom'
 
 // 明水印-方式三：canvas
-// import './utils/byCanvas';
+import './utils/byCanvas';
 
 // 明水印-方式四：svg
-import './utils/bySvg';
+// import './utils/bySvg';
 </script>
 
 <template>

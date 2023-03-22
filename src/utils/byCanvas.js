@@ -22,4 +22,30 @@
   watermark.className = 'watermark';
   watermark.style.backgroundImage = `url(${createWatermark()})`;
   document.body.appendChild(watermark);
+
+  // 设置需要观察的元素
+  const targetNode = document.body;
+  // 设置观察器的回调函数
+  const callback = function (mutationList, observer) {
+    for (let mutation of mutationList) {
+      // removedNodes被删除的dom元素列表
+      mutation.removedNodes.forEach(item => {
+        // watermark为水印元素
+        if (item === watermark) {
+          // 如果水印元素被删除，就再添加回被观察元素中
+          targetNode.appendChild(item);
+        }
+      });
+    }
+  };
+  // 设置观察器的配置
+  const config = {
+    attrubutes: true, // 属性变动是否会触发
+    subtree: true, // 后代元素变动是否会触发
+    childList: true, // 子元素变动是否会触发
+  };
+  // 创建一个 mutationObserver 观察器
+  const observer = new MutationObserver(callback);
+  // 给观察器添加配置
+  observer.observe(targetNode, config);
 })();
